@@ -21,7 +21,6 @@ body{
     text-align: center;
     align-items: center;
     margin-top: 5px;
-    z-index: 100;
 
 }
 
@@ -651,7 +650,7 @@ body{
    }
 
    .items img{
-       width: 120px;
+       width: 90px;
    }
 
    .items {
@@ -706,7 +705,7 @@ body{
    }
 
    .items img{
-       width: 120px;
+       width: 90px;
    }
 
    .items {
@@ -786,12 +785,13 @@ body{
    
 
     .nav{
-        display: block;
+        z-index: 100;
         position: fixed;
     }
 
     .LogoMenu{
         display: block;
+        
     }
 
     .nav-list{
