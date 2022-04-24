@@ -1,31 +1,57 @@
 AOS.init();
 
+const menu = document.querySelector(".menu");
+const navOpen = document.querySelector(".hamburger");
+const navClose = document.querySelector(".close");
 
-const logoMenu = document.querySelector('.LogoMenu');
-const navbar = document.querySelector('.nav-bar');
-const arrList = document.querySelectorAll('.nav-list');
+const navLeft = menu.getBoundingClientRect().left;
+navOpen.addEventListener("click", () => {
+  if (navLeft < 0) {
+    menu.classList.add("show");
+    document.body.classList.add("show");
+    navBar.classList.add("show");
+  }
+});
 
-logoMenu.addEventListener('click', () => {
+navClose.addEventListener("click", () => {
+  if (navLeft < 0) {
+    menu.classList.remove("show");
+    document.body.classList.remove("show");
+    navBar.classList.remove("show");
+  }
+});
 
-    if(navbar.className === 'nav-bar'){
+// Fixed Nav
+const navBar = document.querySelector(".nav");
+const navHeight = navBar.getBoundingClientRect().height;
+window.addEventListener("scroll", () => {
+  const scrollHeight = window.pageYOffset;
+  if (scrollHeight > navHeight) {
+    navBar.classList.add("fix-nav");
+  } else {
+    navBar.classList.remove("fix-nav");
+  }
+});
 
-        navbar.className += " responsive"
-        logoMenu.style.width = "35px";
-        logoMenu.style.top = "2px";
-        logoMenu.src ="img/close-option.png";
+// Scroll To
+const links = [...document.querySelectorAll(".scroll-link")];
+links.map(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
 
-    } else {
-         
-        navbar.className = "nav-bar";
-        logoMenu.style.width = "35px";
-        logoMenu.style.top = "2px";
-        logoMenu.src ="img/square.png";
-    }
-})
+    const id = e.target.getAttribute("href").slice(1);
+    const element = document.getElementById(id);
+    const fixNav = navBar.classList.contains("fix-nav");
+    let position = element.offsetTop - navHeight;
 
-arrList.forEach(item => {
-    item.addEventListener('click', () => {
-        navbar.className = 'nav-bar';
-        logoMenu.src = 'img/square.png';
-    })
-})
+    window.scrollTo({
+      top: position,
+      left: 0,
+    });
+
+    navBar.classList.remove("show");
+    menu.classList.remove("show");
+    document.body.classList.remove("show");
+  });
+});
+
